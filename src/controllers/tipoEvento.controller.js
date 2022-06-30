@@ -8,8 +8,7 @@ function AgregarTipoEvento(req, res) {
 
     if (parametros.tipoEvento)  {
 
-        modeloTipoEvento.tipoEvento = parametros.tipoEvento;
-        
+        modeloTipoEvento.tipoEvento = parametros.tipoEvento;     
 
         modeloTipoEvento.save((err, tipoEventoGuardado) => {
 
