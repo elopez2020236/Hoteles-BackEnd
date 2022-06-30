@@ -1,0 +1,29 @@
+{
+  "name": "hoteles-backend",
+  "version": "1.0.0",
+  "description": "API parte logica del proyecto de hoteles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plancerio2020255/hoteles-backend.git"
+  },
+  "author": "Pedro Lancerio/ Edwar Lopez/ Jefferson Franco/ Genry Luis/ Mynor Xocol",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.29.1",
+    "mongoose": "^6.2.0",
+    "nodemon": "^2.0.15"
+  },
+  "bugs": {
+    "url": "https://github.com/plancerio2020255/hoteles-backend/issues"
+  },
+  "homepage": "https://github.com/plancerio2020255/hoteles-backend#readme"
+}
