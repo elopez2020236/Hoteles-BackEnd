@@ -9,6 +9,7 @@ const habitacionesRoutes = require("./src/routes/habitaciones.routes");
 const eventosRoutes = require("./src/routes/eventos.routes");
 const userRoutes = require("./src/routes/usuario.routes");
 const reservacion = require("./src/routes/reservacion.routes");
+const tipoEvRoutes = require("./src/routes/tipoEvento.router");
 
 // MIDDLEWARES
 app.use(express.urlencoded({ extended: false }));
@@ -19,5 +20,7 @@ app.use(cors());
 
 // CARGA DE RUTAS localhost:3000/api/productos
 app.use("/api", hotelesRoutes, userRoutes, habitacionesRoutes, eventosRoutes, reservacion);
+
+app.use("/api", hotelesRoutes, userRoutes, habitacionesRoutes, eventosRoutes, tipoEvRoutes);
 
 module.exports = app;

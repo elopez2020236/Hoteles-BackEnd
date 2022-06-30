@@ -1,6 +1,6 @@
 const jwt_simple = require('jwt-simple');
 const moment = require('moment');
-const claveSecreta = "clave_secreta_IN6BV";
+const claveSecreta = "secretisimo_papa";
 
 exports.crearToken = function (usuario) {
     let payload = {
