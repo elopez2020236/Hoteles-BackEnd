@@ -6,21 +6,17 @@ function agregarHotel(req, res) {
 
   if (parametros.nombre && parametros.direccion && parametros.telefono) {
     Hoteles.find({ nombre: parametros.nombre }, (err, hotelEncontrado) => {
-      if (hotelEncontrado.length > 0) {
-        return res
-          .status(500)
-          .send({ mensaje: "Este hotel ya se ha registrado" });
+      if (hotelEncontrado.length > 0) {return res.status(500).send({ mensaje: "Este hotel ya se ha registrado" });
       } else {
         hotelesModel.nombre = parametros.nombre;
         hotelesModel.direccion = parametros.direccion;
         hotelesModel.telefono = parametros.telefono;
+        hotelesModel.idGerente = req.user.sub;
+
+
         hotelesModel.save((err, hotelGuardado) => {
-          if (err)
-            return res.status(500).send({ mensaje: "Error en la peticion" });
-          if (!hotelGuardado)
-            return res
-              .status(500)
-              .send({ mensaje: "Error al guardar el usuario" });
+          if (err)return res.status(500).send({ mensaje: "Error en la peticion" });
+          if (!hotelGuardado)return res.status(500).send({ mensaje: "Error al guardar el usuario" });
           return res.send({ hotel: hotelGuardado });
         });
       }

@@ -21,6 +21,10 @@ function AgregarEventos(req, res) {
         modeloEventos.fecha = parametros.fecha;
         modeloEventos.asistentes = parametros.asistentes;
 
+        modeloEventos.idHotel = req.user.sub;
+        modeloEventos.idTipoEvento = req.user.sub;
+
+
         modeloEventos.save((err, eventoGuardado) => {
 
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion ' });
