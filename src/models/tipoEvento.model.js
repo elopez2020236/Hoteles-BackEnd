@@ -5,4 +5,4 @@ const TipoEvento = Schema({
   tipoEvento: String,
 });
 
-module.exports = mongoose.model("TipoEvento", Eventos);
+module.exports = mongoose.model("TipoEvento", TipoEvento);
