@@ -15,18 +15,20 @@ function AgregarEventos(req, res) {
     var parametros = req.body;
     var modeloEventos = new Eventos();
 
-    if (nombreEvento) {
-        modeloEventos.nombreEvento = parametros.nombreEvento;
-        modeloHabitaciones.horaEvento = parametros.horaEvento;
-        modeloEventos.fechaEvento = parametros.fechaEvento;
+    if (parametros.nombre, parametros.hora, parametros.fecha, parametros.asistentes) {
+        modeloEventos.nombre = parametros.nombre;
+        modeloEventos.hora = parametros.hora;
+        modeloEventos.fecha = parametros.fecha;
         modeloEventos.asistentes = parametros.asistentes;
-        modeloEventos.hotel = req.user.sub;
-        modeloEventos.typeEvent = req.user.sub;
+
+        modeloEventos.idHotel = req.user.sub;
+        modeloEventos.idTipoEvento = req.user.sub;
+
 
         modeloEventos.save((err, eventoGuardado) => {
 
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion ' });
-            if (!eventoGuardado) return res.status(500).send({ mensaje: 'Error al agregar el evento' }); //Si no trae nada
+            if (!eventoGuardado) return res.status(500).send({ mensaje: 'Error al agregar el evento' });
 
             return res.send({ eventos: eventoGuardado });
         });
@@ -53,9 +55,9 @@ function EditarEventos(req, res) {
 function EliminarEventos(req, res) {
     var idEve = req.params.idEvento;
 
-    Eventos.findByIdAndDelete(idHab, (err, eventoEliminado) => {
+    Eventos.findByIdAndDelete(idEve, (err, eventoEliminado) => {
         if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if (!habitacionEliminado) return res.status(500)
+        if (!eventoEliminado) return res.status(500)
             .send({ mensaje: 'Error al eliminar el Evento' })
 
         return res.status(200).send({ eventos: eventoEliminado });

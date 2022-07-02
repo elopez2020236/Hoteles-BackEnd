@@ -6,7 +6,7 @@ const HabitacionesSchema = Schema({
     tipoHabitacion: String,
     numeroPiso: String,
     precio: String,
-    idHoteles: { type: Schema.Types.ObjectId, ref: "Hoteles" },
+    idHoteles: { type: Schema.Types.ObjectId, ref: "Hotel" },
 });
 
 

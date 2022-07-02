@@ -12,7 +12,7 @@ function AgregarReservacion(req, res) {
         modeloReservacion.entrada = parametros.entrada;
         modeloReservacion.salida = parametros.salida;
 
-        //modeloReservacion.idUsuario = req.user.sub;
+        modeloReservacion.idUsuario = req.user.sub;
 
         modeloReservacion.save((err, reservacionGuardado) => {
 
