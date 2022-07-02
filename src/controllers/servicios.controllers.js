@@ -51,8 +51,16 @@ function EliminarServicios(req, res) {
         return res.status(200).send({ servicio: servicioEliminado });
     })
 }
+
+function ObtenerServicios(req, res) {
+    Servicios.find({}, (err, serviciosEncontrados) => {
+
+        return res.status(200).send({ servicios: serviciosEncontrados })
+    })
+}
 module.exports = {
     Agregarservicio,
     EditarServicio,
-    EliminarServicios
+    EliminarServicios,
+    ObtenerServicios
 }
