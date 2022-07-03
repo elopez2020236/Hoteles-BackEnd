@@ -32,7 +32,7 @@ function AgregarHabitaciones(req, res) {
         modeloHabitaciones.tipoHabitacion = parametros.tipoHabitacion;
         modeloHabitaciones.numeroPiso = parametros.numeroPiso;
         modeloHabitaciones.precio = parametros.precio;
-        modeloHabitaciones.idHoteles = req.user.sub;
+        //modeloHabitaciones.idHoteles = req.user.sub;
 
         modeloHabitaciones.save((err, habitacionGuardado) => {
 
