@@ -201,13 +201,11 @@ function EditarUsuario(req, res) {
   });
 }
 
-function VerUsuario(req, res) {
-  Usuario.find({}, (err, catEncontrado) => {
-    if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
-    if (!catEncontrado)
-      return res.status(500).send({ mensaje: "Error al buscar Usuario" });
 
-    return res.status(200).send({ Usuario: catEncontrado });
+
+function ObtenerUsuario(req, res) {
+  Usuario.find({}, (err, usuarioEncontrado) => {
+    return res.status(200).send({ usuario: usuarioEncontrado });
   });
 }
 
@@ -250,7 +248,7 @@ module.exports = {
   Login,
   RegistrarUsuario,
   EditarUsuario,
-  VerUsuario,
+  ObtenerUsuario,
   ObtenerUsuarioId,
   eliminarUsuario,
   crearGerente,

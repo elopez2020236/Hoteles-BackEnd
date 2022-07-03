@@ -12,7 +12,7 @@ api.post('/login', controladorUsuario.Login);
 api.put('/editarUsuario/:idEmpresa' ,controladorUsuario.EditarUsuario);
 api.delete("/eliminarUsuario/:idUsuario",controladorUsuario.eliminarUsuario);
 api.get("/obtenerUsuarioId/:idUsuario",controladorUsuario.ObtenerUsuarioId);
-api.get("/verUsuario/:idUsuario",controladorUsuario.VerUsuario);
+api.post("/verUsuario",controladorUsuario.ObtenerUsuario);
 
 
 
