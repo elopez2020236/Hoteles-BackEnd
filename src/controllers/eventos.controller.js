@@ -1,12 +1,24 @@
 const mongoose = require('mongoose');
 const Eventos = require('../models/eventos.model');
 
-
-// Ver Eventos
+//Ver Eventos
 function ObtenerEventos(req, res) {
     Eventos.find({}, (err, eventosEncontrados) => {
 
         return res.status(200).send({ eventos: eventosEncontrados })
+    })
+}
+
+
+//Obtener un evento en específico
+function ObtenerEventoId(req, res) {
+    const idEve = req.params.idEvento;
+
+    Eventos.findById(idEve, (err, eventoEncontrado) => {
+        if (err) return res.status(500).send({ mensaje: 'Erro en la peticion' });
+        if (!eventoEncontrado) return res.status(500).send({ mensaje: 'Error al obtener el evento' });
+
+        return res.status(200).send({ eventos: eventoEncontrado });
     })
 }
 
@@ -21,8 +33,8 @@ function AgregarEventos(req, res) {
         modeloEventos.fecha = parametros.fecha;
         modeloEventos.asistentes = parametros.asistentes;
 
-        modeloEventos.idHotel = req.user.sub;
-        modeloEventos.idTipoEvento = req.user.sub;
+        //modeloEventos.idHotel = req.user.sub;
+        //modeloEventos.idTipoEvento = req.user.sub;
 
 
         modeloEventos.save((err, eventoGuardado) => {
@@ -69,5 +81,6 @@ module.exports = {
     ObtenerEventos,
     AgregarEventos,
     EditarEventos,
-    EliminarEventos
+    EliminarEventos,
+    ObtenerEventoId
 }
