@@ -116,7 +116,7 @@ function crearGerente(req, res) {
   let parametros = req.body;
   let usuarioModel = new Usuario();
 
-  if (parametros.nombre && parametros.email && parametros.rol) {
+  if (parametros.nombre && parametros.email) {
     Usuario.find({ email: parametros.email }, (err, gerenteEncontrado) => {
       if (gerenteEncontrado.length > 0) {
         return res
