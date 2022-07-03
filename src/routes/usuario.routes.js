@@ -9,10 +9,14 @@ api.post('/registrarUsuario', controladorUsuario.RegistrarUsuario);
 api.post('/registrar', controladorUsuario.RegistrarAd);
 api.post('/crearGerente', controladorUsuario.crearGerente)
 api.post('/login', controladorUsuario.Login);
-api.put('/editarUsuario/:idEmpresa' , controladorUsuario.EditarUsuario);
-api.delete("/eliminarUsuario/:idUsuario", controladorUsuario.eliminarUsuario);
-api.get("/obtenerUsuarioId/:idUsuario", controladorUsuario.ObtenerUsuarioId);
-api.get("/verUsuario/:idUsuario", controladorUsuario.VerUsuario);
+
+api.put('/editarUsuario/:idEmpresa' ,controladorUsuario.EditarUsuario);
+api.delete("/eliminarUsuario/:idUsuario",controladorUsuario.eliminarUsuario);
+api.get("/obtenerUsuarioId/:idUsuario",controladorUsuario.ObtenerUsuarioId);
+api.post("/verUsuario",controladorUsuario.ObtenerUsuario);
+
+
+
 
 
 
