@@ -41,6 +41,7 @@ function editarHotel(req, res) {
     });
 }
 
+//Eliminar Hotel
 function eliminarHotel(req, res) {
     let idHotel = req.params.id;
 
