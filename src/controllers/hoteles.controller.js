@@ -1,5 +1,6 @@
 const Hoteles = require("../models/hotel.model");
 
+//Agregar Hoteles
 function agregarHotel(req, res) {
     let parametros = req.body;
     let hotelesModel = new Hoteles();
