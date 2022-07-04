@@ -1,16 +1,34 @@
 const mongoose = require('mongoose');
 const Servicios = require('../models/servicios.model');
 
+//Ver Servicios
+function ObtenerServicios(req, res) {
+    Servicios.find({}, (err, serviciosEncontrados) => {
+
+        return res.status(200).send({ servicios: serviciosEncontrados })
+    })
+}
+
+//Obtener una solo un servicio
+function ObtenerServicioId(req, res) {
+    const idServi = req.params.idServicio;
+
+    Servicios.findById(idServi, (err, servicioEncontrado) => {
+        if (err) return res.status(500).send({ mensaje: 'Erro en la peticion' });
+        if (!servicioEncontrado) return res.status(500).send({ mensaje: 'Error al obtener el servicio' });
+
+        return res.status(200).send({ servicios: servicioEncontrado });
+    })
+}
+
 function Agregarservicio(req, res) {
     let parametros = req.body;
     let modeloServicios = new Servicios();
 
 
     if (parametros.nombreServicio && parametros.costoServicio) {
-
         modeloServicios.nombreServicio = parametros.nombreServicio;
         modeloServicios.costoServicio = parametros.costoServicio;
-
 
         modeloServicios.save((err, servicioGuardado) => {
 
@@ -52,15 +70,10 @@ function EliminarServicios(req, res) {
     })
 }
 
-function ObtenerServicios(req, res) {
-    Servicios.find({}, (err, serviciosEncontrados) => {
-
-        return res.status(200).send({ servicios: serviciosEncontrados })
-    })
-}
 module.exports = {
+    ObtenerServicios,
     Agregarservicio,
     EditarServicio,
     EliminarServicios,
-    ObtenerServicios
+    ObtenerServicioId
 }

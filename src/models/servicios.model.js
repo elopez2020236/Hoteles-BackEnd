@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const Servicios = Schema({
     nombreServicio: String,
-    costoServicio: Number,
+    costoServicio: String,
 });
 
 module.exports = mongoose.model("Servicios", Servicios);

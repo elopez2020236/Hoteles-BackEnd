@@ -5,7 +5,8 @@ const api = express.Router();
 
 api.post("/agregarServicio", serviciosController.Agregarservicio);
 api.put("/editarServicio/:idServicio", serviciosController.EditarServicio);
-api.delete("/eliminarServicios/:idServicio", serviciosController.EliminarServicios);
-api.get("/ObtenerServicios", serviciosController.ObtenerServicios);
+api.delete("/eliminarServicio/:idServicio", serviciosController.EliminarServicios);
+api.get("/verServicios", serviciosController.ObtenerServicios);
+api.get('/servicio/:idServicio', serviciosController.ObtenerServicioId);
 
 module.exports = api;
