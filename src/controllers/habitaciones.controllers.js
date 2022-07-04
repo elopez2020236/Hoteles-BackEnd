@@ -1,5 +1,4 @@
 const Habitaciones = require('../models/habitaciones.model');
-const Hoteles = require('../models/hotel.model');
 
 //Ver habitaciones
 function ObtenerHabitaciones(req, res) {
@@ -8,6 +7,7 @@ function ObtenerHabitaciones(req, res) {
         return res.status(200).send({ habitaciones: habitacionesEncontrados })
     })
 }
+
 
 //Obtener una solo habitación
 function ObtenerHabitacionId(req, res) {
@@ -34,6 +34,7 @@ function AgregarHabitaciones(req, res) {
         modeloHabitaciones.precio = parametros.precio;
         //modeloHabitaciones.idHoteles = req.user.sub;
 
+
         modeloHabitaciones.save((err, habitacionGuardado) => {
 
             if (err) return res.status(500).send({ mensaje: 'Error en la peticion ' });
@@ -57,7 +58,7 @@ function EditarHabitaciones(req, res) {
             .send({ mensaje: 'Error al Editar la habitación' });
 
         return res.status(200).send({ habitaciones: habitacionEditado });
-    })
+    });
 }
 
 // Eliminar habitaciones

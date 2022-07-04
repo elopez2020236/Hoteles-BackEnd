@@ -13,4 +13,5 @@ api.get("/verHoteles", md_autenticacion.Auth, hotelesController.verHoteles);
 api.get("/verHotelesId/:idHotel", [md_autenticacion.Auth, md_rol.verAdmin], hotelesController.obtenerHotelesById);
 api.get("/buscarHotelByName", md_autenticacion.Auth, hotelesController.buscarHotelByName);
 
+
 module.exports = api;

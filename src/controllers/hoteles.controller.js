@@ -14,7 +14,6 @@ function agregarHotel(req, res) {
                 hotelesModel.telefono = parametros.telefono;
                 hotelesModel.idGerente = req.user.sub;
 
-
                 hotelesModel.save((err, hotelGuardado) => {
                     if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
                     if (!hotelGuardado) return res.status(500).send({ mensaje: "Error al guardar el usuario" });
@@ -33,19 +32,12 @@ function editarHotel(req, res) {
     let parametros = req.body;
     let idHotel = req.params.idHotel;
 
-    Hoteles.findByIdAndUpdate(
-        idHotel,
-        parametros, { new: true },
-        (err, hotelEditado) => {
-            if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
-            if (!hotelEditado)
-                return res
-                    .status(404)
-                    .send({ mensaje: "Error al editar la informacion del hotel" });
+    Hoteles.findByIdAndUpdate(idHotel, parametros, { new: true }, (err, hotelEditado) => {
+        if (err) return res.status(500).send({ mensaje: "Error en la peticion" });
+        if (!hotelEditado) return res.status(404).send({ mensaje: "Error al editar la informacion del hotel" });
 
-            return res.status(200).send({ hotel: hotelEditado });
-        }
-    );
+        return res.status(200).send({ hotel: hotelEditado });
+    });
 }
 
 function eliminarHotel(req, res) {

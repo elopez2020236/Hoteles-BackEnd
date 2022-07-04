@@ -33,8 +33,6 @@ function AgregarEventos(req, res) {
         modeloEventos.fecha = parametros.fecha;
         modeloEventos.asistentes = parametros.asistentes;
 
-        //modeloEventos.idHotel = req.user.sub;
-        //modeloEventos.idTipoEvento = req.user.sub;
 
 
         modeloEventos.save((err, eventoGuardado) => {
