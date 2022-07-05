@@ -1,20 +1,29 @@
 exports.verAdmin = function(req, res, next) {
-  if (req.user.rol !== "ADMIN")
-    return res.status(403).send({ mensaje: "Solo puede acceder el Admin" });
+    if (req.user.rol !== "ADMIN")
+        return res.status(403).send({ mensaje: "Solo puede acceder el Admin" });
 
-  next();
+    next();
 }
 
 exports.verUsuario = function(req, res, next) {
-  if (req.user.rol !== "Usuario")
-    return res.status(403).send({ mensaje: "Solo puede acceder el usuario" });
+    if (req.user.rol !== "Usuario")
+        return res.status(403).send({ mensaje: "Solo puede acceder el usuario" });
 
-  next();
+    next();
 }
 
 exports.verGerente = function(req, res, next) {
-  if (req.user.rol !== "Gerente")
-    return res.status(403).send({ mensaje: "Solo puede acceder el gerente" });
+    if (req.user.rol !== "Gerente")
+        return res.status(403).send({ mensaje: "Solo puede acceder el gerente" });
 
-  next();
+    next();
+}
+
+exports.verHoteles = function(req, res, next) {
+    var autorizados = ['ADMIN', 'Usuario', 'Gerente'];
+
+    if (!autorizados.includes(req.user.rol))
+        return res.status(403).send({ mensaje: "Solo puede acceder el gerente" });
+
+    next();
 }
