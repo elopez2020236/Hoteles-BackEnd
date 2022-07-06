@@ -6,8 +6,8 @@ const Eventos = Schema({
     hora: String,
     fecha: String,
     asistentes: String,
-    hotel: { type: Schema.Types.ObjectId, ref: "Hoteles" },
-    typeEvent: { type: Schema.Types.ObjectId, ref: "TipoEvento" }
+    idHoteles: { type: Schema.Types.ObjectId, ref: "Hotel" },
+    idTipoEvento: { type: Schema.Types.ObjectId, ref: "TipoEvento" }
 });
 
 module.exports = mongoose.model("Eventos", Eventos);

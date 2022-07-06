@@ -32,6 +32,10 @@ function AgregarEventos(req, res) {
         modeloEventos.hora = parametros.hora;
         modeloEventos.fecha = parametros.fecha;
         modeloEventos.asistentes = parametros.asistentes;
+        modeloEventos.idHoteles = req.user.sub;
+        modeloEventos.idTipoEvento = req.user.sub;
+
+
 
 
 

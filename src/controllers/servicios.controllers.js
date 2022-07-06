@@ -30,6 +30,8 @@ function Agregarservicio(req, res) {
     if (parametros.nombreServicio && parametros.costoServicio) {
         modeloServicios.nombreServicio = parametros.nombreServicio;
         modeloServicios.costoServicio = parametros.costoServicio;
+        modeloServicios.idHabitacion = req.user.sub;
+
 
         modeloServicios.save((err, servicioGuardado) => {
 
