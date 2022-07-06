@@ -7,9 +7,9 @@ const md_rol = require("../middlewares/roles");
 const api = express.Router();
 
 api.get('/verHabitaciones', [md_autenticacion.Auth, md_rol.verHabitaciones], habitacionesController.ObtenerHabitaciones);
-api.post('/agregarHabitacion', habitacionesController.AgregarHabitaciones);
-api.put('/editarHabitacion/:idHabitacion', habitacionesController.EditarHabitaciones);
-api.delete('/eliminarHabitacion/:idHabitacion', habitacionesController.EliminarHabitaciones);
+api.post('/agregarHabitacion',md_autenticacion.Auth, habitacionesController.AgregarHabitaciones);
+api.put('/editarHabitacion/:idHabitacion', md_autenticacion.Auth, habitacionesController.EditarHabitaciones);
+api.delete('/eliminarHabitacion/:idHabitacion',md_autenticacion.Auth, habitacionesController.EliminarHabitaciones);
 api.get('/habitacion/:idHabitacion', habitacionesController.ObtenerHabitacionId);
 
 module.exports = api;
