@@ -6,12 +6,12 @@ const md_rol = require("../middlewares/roles");
 
 const api = express.Router();
 
-api.post("/agregarHotel", [md_autenticacion.Auth, md_rol.verAdmin], hotelesController.agregarHotel);
-api.put("/editarHotel/:idHotel", md_autenticacion.Auth, hotelesController.editarHotel);
-api.delete("/eliminarHotel/:id", [md_autenticacion.Auth, md_rol.verAdmin], hotelesController.eliminarHotel);
+api.post("/agregarHotel", hotelesController.agregarHotel);
+api.put("/editarHotel/:idHotel", hotelesController.editarHotel);
+api.delete("/eliminarHotel/:id", hotelesController.eliminarHotel);
 api.get("/verHoteles", [md_autenticacion.Auth, md_rol.verHoteles], hotelesController.verHoteles);
-api.get("/verHotelesId/:idHotel", [md_autenticacion.Auth, md_rol.verAdmin], hotelesController.obtenerHotelesById);
-api.get("/buscarHotelByName", md_autenticacion.Auth, hotelesController.buscarHotelByName);
+api.get("/verHotelesId/:idHotel", hotelesController.obtenerHotelesById);
+api.get("/buscarHotelByName", hotelesController.buscarHotelByName);
 
 
 module.exports = api;

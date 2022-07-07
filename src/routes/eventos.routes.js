@@ -7,9 +7,9 @@ const md_rol = require("../middlewares/roles");
 const api = express.Router();
 
 api.get('/verEventos', [md_autenticacion.Auth, md_rol.verEventos], eventosController.ObtenerEventos);
-api.post('/agregarEvento',md_autenticacion.Auth, eventosController.AgregarEventos);
-api.put("/editarEvento/:idEvento",md_autenticacion.Auth, eventosController.EditarEventos);
-api.delete("/eliminarEvento/:idEvento",md_autenticacion.Auth, eventosController.EliminarEventos);
+api.post('/agregarEvento', eventosController.AgregarEventos);
+api.put("/editarEvento/:idEvento", eventosController.EditarEventos);
+api.delete("/eliminarEvento/:idEvento", eventosController.EliminarEventos);
 api.get('/evento/:idEvento', eventosController.ObtenerEventoId);
 
 module.exports = api;
