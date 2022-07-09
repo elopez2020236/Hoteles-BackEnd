@@ -1,4 +1,5 @@
 const Habitaciones = require('../models/habitaciones.model');
+const Hoteles = require('../models/hotel.model');
 
 //Ver habitaciones
 function ObtenerHabitaciones(req, res) {
@@ -26,22 +27,41 @@ function ObtenerHabitacionId(req, res) {
 function AgregarHabitaciones(req, res) {
     let parametros = req.body;
     let modeloHabitaciones = new Habitaciones();
+    let idHotel = req.params.id;
 
     if (parametros.numeroHabitacion && parametros.tipoHabitacion && parametros.precio) {
         modeloHabitaciones.numeroHabitacion = parametros.numeroHabitacion;
         modeloHabitaciones.tipoHabitacion = parametros.tipoHabitacion;
         modeloHabitaciones.numeroPiso = parametros.numeroPiso;
         modeloHabitaciones.precio = parametros.precio;
+        modeloHabitaciones.estado = true
         //modeloHabitaciones.idHoteles = req.user.sub;
 
 
         modeloHabitaciones.save((err, habitacionGuardado) => {
+            if(err){
+                return res.status(500).send({ mensaje: "error en la peticion 1"});
 
-            if (err) return res.status(500).send({ mensaje: 'Error en la peticion ' });
-            if (!habitacionGuardado) return res.status(500).send({ mensaje: 'Error al agregar la habitación' }); //Si no trae nada
+            }else if (habitacionGuardado){
+               
+                Hoteles.findByIdAndUpdate(idHotel,{$push:{Habitaciones:habitacionGuardado._id}},{new: true},
+                    (err,hotelActualizado)=>{
+                        if(err) return res.status(500).send({ mensaje:'error en la peticion 2'});
+                        else if (hotelActualizado){
+                            return res.status(200).send({ mensaje:'se creo y se agrego la habitacion correctamente',habitacionGuardado});
+                        
+                        }else{
+                             return res.status(500).send({ mensaje:'error al agregar la habitacion al hotel'})
+                        }
+                    })
 
-            return res.send({ habitaciones: habitacionGuardado });
-        });
+
+            }else{
+                return res.status(500).send({ mensaje: 'error al guardar la habitacion'});
+            }
+
+
+            });
     } else {
         return res.send({ mensaje: "Debe enviar los parametros obligatorios." })
     }

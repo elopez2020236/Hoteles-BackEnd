@@ -5,6 +5,8 @@ const HotelSchema = mongoose.Schema({
   direccion: String,
   telefono: String,
   idGerente: { type: Schema.Types.ObjectId, ref: "Usuarios" },
+  Habitaciones: [{ type: Schema.Types.ObjectId, ref: 'Habitaciones'}]
+
 });
 
 module.exports = mongoose.model("Hotel", HotelSchema);

@@ -9,9 +9,10 @@ const api = express.Router();
 api.post("/agregarHotel", hotelesController.agregarHotel);
 api.put("/editarHotel/:idHotel", hotelesController.editarHotel);
 api.delete("/eliminarHotel/:id", hotelesController.eliminarHotel);
-api.get("/verHoteles", [md_autenticacion.Auth, md_rol.verHoteles], hotelesController.verHoteles);
+api.get("/verHoteles", hotelesController.verHoteles);
 api.get("/verHotelesId/:idHotel", hotelesController.obtenerHotelesById);
 api.get("/buscarHotelByName", hotelesController.buscarHotelByName);
+api.get("/ObtnernerHabitacionesxHotel/:id", hotelesController.ObtnernerHabitacionesxHotel);
 
 
 module.exports = api;

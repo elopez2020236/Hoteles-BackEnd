@@ -94,6 +94,20 @@ function buscarHotelByName(req, res) {
     }
 }
 
+function ObtnernerHabitacionesxHotel(req, res){
+    var idHotel = req.params.id;
+
+    Hoteles.findById(idHotel,(err, hotelEncontrado)=>{
+        if(err) {return res.status(500).send({ mensaje: "Error en la peticion 1" });
+    }else if(hotelEncontrado){
+        let habitaciones = hotelEncontrado.Habitaciones;
+        return res.status(200).send({mensaje:'las habitaciones son ',habitaciones})
+    }else{
+        return res.status(500).send({ mensaje: 'error al mostrar laa habitaciones'})
+    }}).populate('Habitaciones');
+
+}
+
 module.exports = {
     agregarHotel,
     editarHotel,
@@ -101,4 +115,5 @@ module.exports = {
     verHoteles,
     buscarHotelByName,
     obtenerHotelesById,
+    ObtnernerHabitacionesxHotel
 };
