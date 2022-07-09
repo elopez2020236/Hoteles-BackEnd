@@ -35,6 +35,7 @@ function AgregarHabitaciones(req, res) {
         modeloHabitaciones.numeroPiso = parametros.numeroPiso;
         modeloHabitaciones.precio = parametros.precio;
         modeloHabitaciones.estado = true
+        modeloHabitaciones.numeroDias = null
         //modeloHabitaciones.idHoteles = req.user.sub;
 
 
