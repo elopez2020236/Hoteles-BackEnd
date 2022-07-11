@@ -60,7 +60,7 @@ function RegistrarUsuario(req, res) {
 
                 carritoModel.Usuario = usuarioGuardado._id;
                 carritoModel.Habitaciones= null;
-                carritoModel.Servicios = null;
+                carritoModel.Servicios = [];
                 carritoModel.subTotal = null;
                 carritoModel.save((err,carridoCreado)=>{
 

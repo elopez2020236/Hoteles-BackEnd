@@ -13,6 +13,7 @@ api.post("/AgregarReservacion/:idhabitacion", md_autenticacion.Auth, reservacion
 api.delete("/eliminarReservacion/:idReservacion",  md_autenticacion.Auth, reservacionControler.eliminarReservacion);
 api.post("/obtenerReservaciones", md_autenticacion.Auth, reservacionControler.obtenerReservaciones);
 api.put("/editarReservacion/:idReservacion",md_autenticacion.Auth, reservacionControler.editarReservacion);
+api.get("/prueba/:idHabitacion", md_autenticacion.Auth,reservacionControler.obtenerxhotelXhabitacion)
 
 
 

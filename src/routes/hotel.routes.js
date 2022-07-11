@@ -6,7 +6,7 @@ const md_rol = require("../middlewares/roles");
 
 const api = express.Router();
 
-api.post("/agregarHotel", hotelesController.agregarHotel);
+api.post("/agregarHotel", md_autenticacion.Auth,hotelesController.agregarHotel);
 api.put("/editarHotel/:idHotel", hotelesController.editarHotel);
 api.delete("/eliminarHotel/:id", hotelesController.eliminarHotel);
 api.get("/verHoteles", hotelesController.verHoteles);

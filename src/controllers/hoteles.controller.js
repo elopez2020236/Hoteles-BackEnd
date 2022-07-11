@@ -13,7 +13,7 @@ function agregarHotel(req, res) {
                 hotelesModel.nombre = parametros.nombre;
                 hotelesModel.direccion = parametros.direccion;
                 hotelesModel.telefono = parametros.telefono;
-                //hotelesModel.idGerente = req.user.sub;
+                hotelesModel.idGerente = req.user.sub;
 
                 hotelesModel.save((err, hotelGuardado) => {
                     if (err) return res.status(500).send({ mensaje: "Error en la peticion" });

@@ -2,6 +2,7 @@ const Reservacion = require('../models/reservacion.model');
 const Usuario = require('../models/usuario.model');
 const Habitaciones = require('../models/habitaciones.model');
 const Carrito = require('../models/carrito.model');
+const Hoteles = require('../models/hotel.model');
 
 
 function AgregarReservacion(req, res) {
@@ -44,7 +45,7 @@ function AgregarReservacion(req, res) {
                               if(err){
                                 return res.status(500).send({ mensaje: "error en la peticion 4"});
                               }else if (carritoActualizado){
-                                 Reservacion.findOne({idUsuario:user},(err,reservacionEncontrada)=>{
+                                 Reservacion.findById(reservacionGuardado._id,(err,reservacionEncontrada)=>{
                                   if(err){ 
                                     return res.status(500).send({ mensaje: "error en la perion 5"});
 
@@ -55,7 +56,39 @@ function AgregarReservacion(req, res) {
                                           return res.status(500).send({ mensaje: "error en la peticion 6 "});
                                         }else if (reservationActualizada){
 
-                                          return res.status(200).send({mensaje:'se agrego la reservacion correctamente',reservationActualizada})
+                                          Carrito.findByIdAndUpdate(carritoActualizado._id,{$push:{Habitacion:habitacionid}},
+                                            (err,carritofinal)=>{
+                                              if(err){
+                                                return res.status(500).send({ mensaje: "error en la petion 7"});
+
+                                              }else if (carritofinal){
+                                                
+                                                Hoteles.findOne({Habitaciones:habitacion},(err,hotelEncontrado)=>{
+                                                  if (err) {
+                                                    return res.status(500).send({ mensaje: "error en petiCION 8"});
+                                                  }else if (hotelEncontrado){
+                                                    let arrayServicos = hotelEncontrado.Servios
+
+                                                    Carrito.findByIdAndUpdate(carritofinal._id,{$push:{Servicios:arrayServicos}},
+                                                      (err,carritofinal5)=>{
+                                                        if(err){
+                                                          return res.status(500).send({ mensaje: "error en la peticion 9"})
+                                                        }else if (carritofinal5){
+                                                          return console.log("si")
+                                                        }else{
+                                                          return res.status(500).send({ mensaje:'error al agregar el servicio al carrito'})
+                                                        }
+                                                      })
+                                              
+                                                  }else{
+                                                    return res.status(500).send({ mensaje:'error al obtener el hotel'});
+                                                  }
+                                                })
+
+                                              }else{
+                                                return res.status(500).send({ mensaje:'error al agregar la habitacion al carrito'});
+                                              }
+                                            })
 
                                         }else{
                                           return res.status(500).send({ mensaje:'error al agregar la reservacion '})
@@ -91,6 +124,12 @@ function AgregarReservacion(req, res) {
     } else {
         return res.send({ mensaje: "Debe enviar los parametros obligatorios." })
     }
+}
+
+function obtenerxhotelXhabitacion(req,res){
+  var habitacion = req.params.idHabitacion;
+
+  
 }
 
 
@@ -135,5 +174,6 @@ module.exports = {
     AgregarReservacion,
     eliminarReservacion,
     obtenerReservaciones,
-    editarReservacion
+    editarReservacion,
+    obtenerxhotelXhabitacion
 }

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Servicios = require('../models/servicios.model');
+const Hotel = require('../models/hotel.model');
+
 
 //Ver Servicios
 function ObtenerServicios(req, res) {
@@ -23,22 +25,38 @@ function ObtenerServicioId(req, res) {
 
 //Agregar Servicios
 function Agregarservicio(req, res) {
+    var hotel= req.params.idHotel;
     let parametros = req.body;
+
     let modeloServicios = new Servicios();
 
 
     if (parametros.nombreServicio && parametros.costoServicio) {
         modeloServicios.nombreServicio = parametros.nombreServicio;
         modeloServicios.costoServicio = parametros.costoServicio;
-        modeloServicios.idHabitacion = req.user.sub;
+        
 
 
         modeloServicios.save((err, servicioGuardado) => {
 
-            if (err) return res.status(500).send({ mensaje: 'Error en la peticion ' });
-            if (!servicioGuardado) return res.status(500).send({ mensaje: 'Error al agregar ' });
+            if(err){
+                return res.status(500).send({ mensaje: "error en la peticion 1"});
 
-            return res.send({ servicios: servicioGuardado });
+            }else if (servicioGuardado){
+
+                Hotel.findByIdAndUpdate(hotel,{$push:{Servios:servicioGuardado._id}},
+                    (err,hotelActualizado)=>{
+                        if(err){
+                            return res.status(500).send({ mensaje: "error en la peticion 2"});
+                        }else if (hotelActualizado){
+                                return res.status(200).send({ mensaje:'se creo y agrego el servicio correctamente',servicioGuardado})
+                        }else{
+                            return res.status(500).send({ mensaje:'error al agregar el servicio '})
+                        }
+                    })
+            }else{
+                return res.status(500).send({ mensaje:'error al guardar el servcio'})
+            }
         });
 
     } else {
