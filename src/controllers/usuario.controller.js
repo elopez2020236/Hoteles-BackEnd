@@ -1,5 +1,6 @@
 const Usuario = require("../models/usuario.model");
 const bcrypt = require("bcrypt-nodejs");
+const Carrito = require("../models/carrito.model");
 const jwt = require("../services/jwt");
 
 function RegistrarAd(req, res) {
@@ -53,17 +54,32 @@ function RegistrarUsuario(req, res) {
             usuarioModel.password = passwordEncriptada;
 
             usuarioModel.save((err, usuarioGuardado) => {
-              if (err)
-                return res
-                  .status(500)
-                  .send({ mensaje: "Error en la peticion" });
-              if (!usuarioGuardado)
-                return res
-                  .status(500)
-                  .send({ mensaje: "Error al agregar el Usuario" });
+              if(err) return res.status(500).send({ mensaje:'error en la peticion 1'});
+              else if(usuarioGuardado) {
+                var carritoModel = new Carrito();
 
-              return res.status(200).send({ usuario: usuarioGuardado });
-            });
+                carritoModel.Usuario = usuarioGuardado._id;
+                carritoModel.Habitaciones= null;
+                carritoModel.Servicios = [];
+                carritoModel.subTotal = null;
+                carritoModel.save((err,carridoCreado)=>{
+
+                  if(err) return res.status(500).send({ mensaje:'error en la petcion 2'});
+                  else if (carridoCreado){
+
+                    return res.status(200).send({mensaje:'se agreo el carrito y el usuario correctamente',usuarioGuardado})
+
+                  }else{
+                    return res.send({ mensaje:'error al crear carrito'})
+                  }
+
+                })
+
+
+              }else{
+                return res.send({ mensaje: 'error al guardar el usuario' })
+              }
+           });
           }
         );
       } else {
@@ -243,6 +259,18 @@ function eliminarUsuario(req, res) {
   });
 }
 
+function ObtenerUsuarios(req,res){
+  Usuario.find({rol:'Usuario'}, (err,usuariosEncontrados)=>{
+    if(err){return res.status(500).send('error en la peticion 1');
+    }else if(usuariosEncontrados){
+      return res.status(200).send({usuario:usuariosEncontrados});
+
+    }else{
+      return res.send({ mensaje: 'error al obtener usuarios'})
+    }
+  })
+}
+
 module.exports = {
   RegistrarAd,
   Login,
@@ -252,4 +280,5 @@ module.exports = {
   ObtenerUsuarioId,
   eliminarUsuario,
   crearGerente,
+  ObtenerUsuarios
 };
