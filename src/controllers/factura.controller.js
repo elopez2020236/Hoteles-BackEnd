@@ -12,7 +12,7 @@ Carrito.findOne({Usuario:user},(err,carritoencontrado)=>{
         return res.status(500).send({ mensaje: "error en la petion 1"});
 
     }else if (carritoencontrado){
-        
+            
              
     }else{
         return res.status(500).send({ mensaje:'error al encontrar en carrito '});
