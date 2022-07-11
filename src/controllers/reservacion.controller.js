@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario.model');
 const Habitaciones = require('../models/habitaciones.model');
 const Carrito = require('../models/carrito.model');
 const Hoteles = require('../models/hotel.model');
+const Servicios = require('../models/servicios.model')
 
 
 function AgregarReservacion(req, res) {
@@ -63,7 +64,7 @@ function AgregarReservacion(req, res) {
 
                                               }else if (carritofinal){
                                                 
-                                                Hoteles.findOne({Habitaciones:habitacion},(err,hotelEncontrado)=>{
+                                                Hoteles.findOne({Habitaciones:habitacionid},(err,hotelEncontrado)=>{
                                                   if (err) {
                                                     return res.status(500).send({ mensaje: "error en petiCION 8"});
                                                   }else if (hotelEncontrado){
@@ -72,9 +73,35 @@ function AgregarReservacion(req, res) {
                                                     Carrito.findByIdAndUpdate(carritofinal._id,{$push:{Servicios:arrayServicos}},
                                                       (err,carritofinal5)=>{
                                                         if(err){
-                                                          return res.status(500).send({ mensaje: "error en la peticion 9"})
+                                                          return res.status(500).send({A:arrayServicos})
                                                         }else if (carritofinal5){
-                                                          return console.log("si")
+
+
+                                                            for(i=0;i<=arrayServicos.length;i++){
+
+                                                              Servicios.findById(arrayServicos[i],(err,servicioEncontrado)=>{
+                                                                if(err){
+                                                                  return res.status(500).send({ mensaje: "error en la perion 9"});
+                                                                }else if (servicioEncontrado){
+
+                                                                 let costoServicio = servicioEncontrado.costoServicio;
+                                                                 let Subtalreal = subtotalafter + costoServicio;
+
+                                                                 Carrito.findByIdAndUpdate(carritofinal5._id,{subTotal:Subtalreal},(err,Ultimocarrito)=>{
+                                                                    if(err){
+                                                                        return res.status(500).send({ mensaje: "error en la peticion 10"});
+                                                                    }else if (Ultimocarrito){
+                                                                      return res.status(200).send({ mensaje:'se creo la reservacion y se actualizo el carrito correctamente',reservationActualizada})
+                                                                    }
+                                                                 })
+                                                                 
+                                                                 
+
+                                                                
+                                                                }
+                                                              })
+
+                                                            }
                                                         }else{
                                                           return res.status(500).send({ mensaje:'error al agregar el servicio al carrito'})
                                                         }
