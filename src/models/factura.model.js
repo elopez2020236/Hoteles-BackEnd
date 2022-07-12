@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const Factura = Schema({
     nombre: String,
-    hora: String,
-    fecha: String,
-    asistentes: String,
-    idHoteles: { type: Schema.Types.ObjectId, ref: "Hotel" },
-    idTipoEvento: { type: Schema.Types.ObjectId, ref: "TipoEvento" }
+    Habitaciones: [{ type: Schema.Types.ObjectId, ref: 'Habitaciones'}],
+    Servicios:[{ type: Schema.Types.ObjectId, ref: 'Servicios'}],
+    TotalPaguar:Number
+    
+    
 });
 
 module.exports = mongoose.model("Factura", Factura);
