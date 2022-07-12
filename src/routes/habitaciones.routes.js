@@ -11,5 +11,5 @@ api.post('/agregarHabitacion/:id', habitacionesController.AgregarHabitaciones);
 api.put('/editarHabitacion/:idHabitacion', habitacionesController.EditarHabitaciones);
 api.delete('/eliminarHabitacion/:idHabitacion', habitacionesController.EliminarHabitaciones);
 api.get('/habitacion/:idHabitacion', habitacionesController.ObtenerHabitacionId);
-
+api.get("/ObtnernerHabitacionesxHotel/:id", habitacionesController.ObtnernerHabitacionesxHotel);
 module.exports = api;
