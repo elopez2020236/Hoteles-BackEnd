@@ -86,11 +86,28 @@ function EliminarEventos(req, res) {
     })
 }
 
+function ObtenerEventosxHotel(req, res){
+    var hotel= req.params.idHotel;
+
+    Hoteles.findById(hotel, (err, hotelEncontrado)=>{
+        if(err){
+            return res.status(500).send({ mensaje:'error en la peticion 1'});
+        }else if (hotelEncontrado){
+             let array =hotelEncontrado.Eventos;
+             return res.status(200).send({Eventos:array})
+        }else{
+            return res.status(500).send({ mensaje:'error al obtener los eventos'})
+        }
+    }).populate("Eventos")
+
+}
+
 
 module.exports = {
     ObtenerEventos,
     AgregarEventos,
     EditarEventos,
     EliminarEventos,
-    ObtenerEventoId
+    ObtenerEventoId,
+    ObtenerEventosxHotel
 }
