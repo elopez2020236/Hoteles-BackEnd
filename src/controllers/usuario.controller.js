@@ -272,6 +272,19 @@ function ObtenerUsuarios(req,res){
 }
 
 
+function ObterneruserLog(req,res){
+  var user = req.user.sub;
+   Usuario.findById(user,(err,usuarioEncontrado)=>{
+    if(err){
+      return res.status(500).send({ mensaje:'error en la peticion'})
+    }else if (usuarioEncontrado){
+          return res.status(200).send({usario:usuarioEncontrado})
+    }else{
+      return res.send({ mensaje: 'error al obtener '})
+    }
+   })
+}
+
 
 module.exports = {
   RegistrarAd,
@@ -282,5 +295,6 @@ module.exports = {
   ObtenerUsuarioId,
   eliminarUsuario,
   crearGerente,
-  ObtenerUsuarios
+  ObtenerUsuarios,
+  ObterneruserLog
 };

@@ -10,7 +10,7 @@ const eventosRoutes = require("./src/routes/eventos.routes");
 const userRoutes = require("./src/routes/usuario.routes");
 const reservacion = require("./src/routes/reservacion.routes");
 const factura = require("./src/routes/factura.routes");
-
+const carrito = require("./src/routes/carrito.routes")
 const servicios = require("./src/routes/servicios.routes");
 const tipoEvRoutes = require("./src/routes/tipoEvento.router");
 
@@ -23,12 +23,12 @@ app.use(express.json());
 app.use(cors());
 
 // CARGA DE RUTAS localhost:3000/api/productos
-app.use("/api", hotelesRoutes, userRoutes, habitacionesRoutes, eventosRoutes, reservacion, servicios, factura);
+app.use("/api", hotelesRoutes, userRoutes, habitacionesRoutes, eventosRoutes, reservacion, servicios, factura,carrito);
 
 
 module.exports = app;
 
-app.use("/api", hotelesRoutes, userRoutes, habitacionesRoutes, eventosRoutes, tipoEvRoutes,factura);
+app.use("/api", hotelesRoutes, userRoutes, habitacionesRoutes, eventosRoutes, tipoEvRoutes,factura,carrito);
 
 module.exports = app;
 

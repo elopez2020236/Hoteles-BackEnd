@@ -15,6 +15,7 @@ api.delete("/eliminarUsuario/:idUsuario",controladorUsuario.eliminarUsuario);
 api.get("/obtenerUsuarioId/:idUsuario",controladorUsuario.ObtenerUsuarioId);
 api.post("/verUsuario",controladorUsuario.ObtenerUsuario);
 api.get("/obtenerUsuarios",controladorUsuario.ObtenerUsuarios);
+api.get("/obtenerUsuarioslog", md_autenticacion.Auth,controladorUsuario.ObterneruserLog);
 
 
 
