@@ -11,5 +11,5 @@ api.post('/agregarEvento/:idHotel', eventosController.AgregarEventos);
 api.put("/editarEvento/:idEvento", eventosController.EditarEventos);
 api.delete("/eliminarEvento/:idEvento", eventosController.EliminarEventos);
 api.get('/evento/:idEvento', eventosController.ObtenerEventoId);
-
+api.get('/obtenerEventosxhotel/:idHotel', eventosController.ObtenerEventosxHotel)
 module.exports = api;
