@@ -36,7 +36,15 @@ Carrito.findOne({Usuario:user},(err,carritoencontrado)=>{
                                 return res.status(500).send({ mensaje:'error en la peticion 2'});
 
                             }else if (carritofinal7){
-                                return res.status(200).send({ Factura:'se creo la factura correctamente',facturaguaddad})
+                               Usuario.findByIdAndUpdate( user,{$push:{factura:facturaguaddad._id}},(err,usuarioActualizado)=>{
+                                if(err){
+                                    return res.status(500).send({ mensaje:'error en la peticion 3'})
+                                }else if (usuarioActualizado){
+                                    return res.status(200).send({ mensaje:'se creo y se agrego la factura correctamente', facturaguaddad})
+                                }else{
+                                    return res.status(500).send({ mensaje:'error al agregar la factura'})
+                                }
+                               })
                             }else{
                                 return res.status(500).send({ mensaje:'error el remover el servico'});
                             }
@@ -60,6 +68,23 @@ Carrito.findOne({Usuario:user},(err,carritoencontrado)=>{
 })
 }
 
+
+function ObtnerFacturaslog(req, res){
+    var user = req.user.sub;
+    Usuario.findById(user,(err,usuarioEncontrado)=>{
+        if(err){
+            return res.status(500).send({ mensaje:'error en la peticion'})
+        }else if (usuarioEncontrado){
+            let facturaa = usuarioEncontrado.factura;
+            return res.status(200).send({facturas:facturaa})
+        
+        }else{
+            return res.status(500).send({ mensaje:'error al obtner el usario'})
+        }
+    }).populate("factura")
+}
+
 module.exports = { 
     CrearFactura,
+    ObtnerFacturaslog
 }
