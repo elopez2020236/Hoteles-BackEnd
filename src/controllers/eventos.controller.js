@@ -78,11 +78,22 @@ function EliminarEventos(req, res) {
     var idEve = req.params.idEvento;
 
     Eventos.findByIdAndDelete(idEve, (err, eventoEliminado) => {
-        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if (!eventoEliminado) return res.status(500)
-            .send({ mensaje: 'Error al eliminar el Evento' })
+        if (err){
+            return res.status(500).send({ mensaje:'error en la peticion'})
+        }else if (eventoEliminado){
+            Hoteles.findOneAndUpdate({Eventos:eventoEliminado._id},{$pull:{Eventos:eventoEliminado._id}},(err,hotelActualizado)=>{
+                if(err){
+                    return res.status(500).send({ mensaje:'error en la peticion 2'})
+                }else if (hotelActualizado){
+                    return res.status(200).send({ mensaje:'se elimino y removio el evento',eventoEliminado})
+                }else{
+                    return res.status(500).send({ mensaje:'error al remover el evento'})
+                }
+            })    
+        }else{
+            return res.status(500).send({ mensaje:'error al eliminar el evento'})
+        }
 
-        return res.status(200).send({ eventos: eventoEliminado });
     })
 }
 
