@@ -12,7 +12,7 @@ api.delete("/eliminarHotel/:id", hotelesController.eliminarHotel);
 api.get("/verHoteles", hotelesController.verHoteles);
 api.get("/verHotelesId/:idHotel", hotelesController.obtenerHotelesById);
 api.get("/buscarHotelByName", hotelesController.buscarHotelByName);
-
+api.get("/obtenerUsuarioHospedado/:idHotel", hotelesController.ObtenerusuarioHosperdado)
 api.get("/obtenerHotelxGerente",md_autenticacion.Auth,hotelesController.obtenerHotelxGerente)
 
 module.exports = api;
