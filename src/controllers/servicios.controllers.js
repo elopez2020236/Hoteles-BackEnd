@@ -91,10 +91,31 @@ function EliminarServicios(req, res) {
     })
 }
 
+function obtenerservicioxHotel (req, res) {
+ var hotel= req.params.idHotel;
+
+ Hotel.findById(hotel,(err, hotelEncontrado)=>{
+    if (err){
+        return res.status(500).send({ mensaje: "error en la peticion 1"});
+    }else if (hotelEncontrado){
+        let arratser= hotelEncontrado.Servios
+        return res.status(200).send({mensaje:'las habitaciones son ',arratser})
+
+
+    }else{
+        return res.status(500).send({ mensaje:'error al obtener los servicos'})
+    }
+
+
+ }).populate("Servios")
+
+}
 module.exports = {
     ObtenerServicios,
     Agregarservicio,
     EditarServicio,
     EliminarServicios,
-    ObtenerServicioId
+    ObtenerServicioId,
+    obtenerservicioxHotel
+
 }

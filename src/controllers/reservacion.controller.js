@@ -16,7 +16,15 @@ function AgregarReservacion(req, res) {
 
     if (parametros.numeroDias)  {
 
+
+      Hoteles.findOne({Habitaciones:habitacionid},(err,hotelfined)=>{
+        if (err){
+          return res.status(500).send({ mensaje: "error "})
+        }else if (hotelfined){
+          var hotelid = hotelfined._id
+      
         modeloReservacion.idUsuario= req.user.sub;
+        modeloReservacion.idHotel = hotelid
         
         modeloReservacion.save((err, reservacionGuardado) => {
           if (err){
@@ -147,6 +155,8 @@ function AgregarReservacion(req, res) {
           }
 
     });
+  }
+})
 
     } else {
         return res.send({ mensaje: "Debe enviar los parametros obligatorios." })
@@ -190,17 +200,20 @@ function eliminarReservacion(req, res) {
 
 
 
-  function obtenerReservaciones(req, res) {
-    Reservacion.find({}, (err, reservacionEncontrada) => {
-      return res.status(200).send({ reservacion: reservacionEncontrada });
-    });
+  function obtenerReservacionesxHotel(req, res) {
+    var hotel = req.params.idHotel;
+
+    Reservacion.find({idHotel:hotel},(err,reservacion)=>{
+      return res.status(200).send({reservacion: reservacion})
+    })
+   
   }
 
 
 module.exports = {
     AgregarReservacion,
     eliminarReservacion,
-    obtenerReservaciones,
+    obtenerReservacionesxHotel,
     editarReservacion,
     obtenerxhotelXhabitacion
 }

@@ -11,5 +11,6 @@ api.post("/agregarServicio/:idHotel",md_autenticacion.Auth, serviciosController.
 api.put("/editarServicio/:idServicio",md_autenticacion.Auth, serviciosController.EditarServicio);
 api.delete("/eliminarServicio/:idServicio", md_autenticacion.Auth,serviciosController.EliminarServicios);
 api.get('/servicio/:idServicio', serviciosController.ObtenerServicioId);
+api.get('/obtenerServicoxHotel/:idHotel',md_autenticacion.Auth,serviciosController.obtenerservicioxHotel)
 
 module.exports = api;

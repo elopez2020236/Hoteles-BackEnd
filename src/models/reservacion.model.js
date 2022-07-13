@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const ReservacionSchema = Schema({
   idUsuario: { type: Schema.Types.ObjectId, ref: 'Usuarios' },
-  idHabitacion:[{  type: Schema.Types.ObjectId, ref: 'Habitaciones'}]
+  idHabitacion:[{  type: Schema.Types.ObjectId, ref: 'Habitaciones'}],
+  idHotel: {type: Schema.Types.ObjectId, ref: 'Hotel' }
 });
 
 module.exports = mongoose.model("Reservacion", ReservacionSchema);
