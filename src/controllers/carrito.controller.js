@@ -11,7 +11,7 @@ function ObternCarritodeUserLogedo(req,res){
         }else{
             return res.status(500).send({ mensaje:'error al obtener'})
         }
-    })
+    }).populate("Habitacion").populate("Servicios")
 }
 
 module.exports = {
