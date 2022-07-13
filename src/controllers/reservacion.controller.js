@@ -227,6 +227,18 @@ function eliminarReservacion(req, res) {
    
   }
 
+  function obtenerReservacion(req, res){
+    Reservacion.find((err,reservacionesEncontrada)=>{
+      if(err){
+        return res.status(500).send({ mensaje:'error en la peticion'});
+
+      }else if (reservacionesEncontrada){
+        return res.status(200).send({ mensaje:reservacionesEncontrada})
+      }else{
+        return res.status(500).send({ mensaje:'error al obtner la reservacion'})
+      }
+    })
+  }
 
 
 module.exports = {
