@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Eventos = require('../models/eventos.model');
+const Hoteles = require('../models/hotel.model');
 
 //Ver Eventos
 function ObtenerEventos(req, res) {
@@ -25,26 +26,33 @@ function ObtenerEventoId(req, res) {
 // Agregar Eventos
 function AgregarEventos(req, res) {
     var parametros = req.body;
+    var hotelid = req.params.idHotel;
     var modeloEventos = new Eventos();
 
-    if (parametros.nombre, parametros.hora, parametros.fecha, parametros.asistentes) {
+    if (parametros.nombre, parametros.hora, parametros.fecha) {
         modeloEventos.nombre = parametros.nombre;
         modeloEventos.hora = parametros.hora;
         modeloEventos.fecha = parametros.fecha;
-        modeloEventos.asistentes = parametros.asistentes;
-       // modeloEventos.idHoteles = req.user.sub;
-       // modeloEventos.idTipoEvento = req.user.sub;
-
-
-
-
-
         modeloEventos.save((err, eventoGuardado) => {
+            if(err){
+                return res.status(500).send({ mensaje:'error en la peticion'});
 
-            if (err) return res.status(500).send({ mensaje: 'Error en la peticion ' });
-            if (!eventoGuardado) return res.status(500).send({ mensaje: 'Error al agregar el evento' });
+            }else if(eventoGuardado){
+    var hotelid = req.params.idHotel;
+                Hoteles.findByIdAndUpdate(hotelid, {$push:{Eventos:eventoGuardado._id}},{new: true},(err,eventoUpdated)=>{
+                    if(err){
+                        return res.status(500).send({ mensaje:'error en la peticion 2'})
 
-            return res.send({ eventos: eventoGuardado });
+                    }else if (eventoUpdated){
+                        return res.status(200).send({ mensaje:'se agrego y se creo el evento correctamente',eventoGuardado})
+                    }else{
+                        return res.status(500).send({ mensaje:'error al agregar el eveto al hotel'})
+                    }
+                })
+
+            }else{
+                return res.status(500).send({ mensaje:'error al guardar el evento'})
+            }
         });
     } else {
         return res.send({ mensaje: "Debe enviar los parametros obligatorios." })

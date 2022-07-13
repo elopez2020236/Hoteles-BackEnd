@@ -7,7 +7,7 @@ const md_rol = require("../middlewares/roles");
 const api = express.Router();
 
 api.get('/verEventos', [md_autenticacion.Auth, md_rol.verEventos], eventosController.ObtenerEventos);
-api.post('/agregarEvento', eventosController.AgregarEventos);
+api.post('/agregarEvento/:idHotel', eventosController.AgregarEventos);
 api.put("/editarEvento/:idEvento", eventosController.EditarEventos);
 api.delete("/eliminarEvento/:idEvento", eventosController.EliminarEventos);
 api.get('/evento/:idEvento', eventosController.ObtenerEventoId);
