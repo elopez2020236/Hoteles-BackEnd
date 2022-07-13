@@ -25,13 +25,22 @@ Carrito.findOne({Usuario:user},(err,carritoencontrado)=>{
              }else if (facturaguaddad){
                     
                 let  arrayvacio = []
-                Carrito.findByIdAndUpdate(carritoencontrado._id,{$pullAll:{Habitacion:arrayHabitacion},$pullAll:{Servicios:arrayServicos},
+                Carrito.findByIdAndUpdate(carritoencontrado._id,{$pullAll:{Habitacion:arrayHabitacion},
                     subTotal:0 },(err,carritoupdate)=>{
                     if(err){
-                        return res.status(500).send({ mensaje:'error en la peticion'});
+                        return res.status(500).send({ mensaje:'error en la peticion',});
 
                     }else if (carritoupdate){
-                        return console.log(carritoupdate)
+                        Carrito.findByIdAndUpdate(carritoencontrado._id,{$pullAll:{Servicios:arrayServicos}},(err,carritofinal7)=>{
+                            if(err){
+                                return res.status(500).send({ mensaje:'error en la peticion 2'});
+
+                            }else if (carritofinal7){
+                                return res.status(200).send({ Factura:'se creo la factura correctamente',facturaguaddad})
+                            }else{
+                                return res.status(500).send({ mensaje:'error el remover el servico'});
+                            }
+                        })
                     }else{
                         return res.status(500).send({ mensaje:'error al remover el carrito'})
                     }
@@ -39,7 +48,7 @@ Carrito.findOne({Usuario:user},(err,carritoencontrado)=>{
 
 
            
-                console.log(arrayvacio)
+               
              }else{
                 return res.status(500).send({ mensaje:'error al agregar a la factura'})
              }
