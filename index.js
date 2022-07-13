@@ -16,7 +16,7 @@ mongoose
       const PORT = process.env.PORT || 3000
     app.listen(PORT, function () {
       console.log(
-        "Servidor de Express corriendo correctamente en el puerto "+PORT
+        'El servidor está levantado en el puerto '+PORT 
       );
     });
   })
