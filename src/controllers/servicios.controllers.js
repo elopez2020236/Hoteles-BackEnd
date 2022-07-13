@@ -83,11 +83,22 @@ function EliminarServicios(req, res) {
     var idServicio = req.params.idServicio;
 
     Servicios.findByIdAndDelete(idServicio, (err, servicioEliminado) => {
-        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if (!servicioEliminado) return res.status(500)
-            .send({ mensaje: 'Error al eliminar el Servicio' })
+        if(err){
+            return res.status(500).send({ mensaje: "error en la peticion 1"})
 
-        return res.status(200).send({ servicio: servicioEliminado });
+        }else if (servicioEliminado){
+            Hotel.findOneAndUpdate({Servios:idServicio},{$pull:{Servios:idServicio}},(err,hotelActualizado)=>{
+                if(err){
+                    return res.status(500).send({ mensaje: "error en la peticion 2"});
+                }else if(hotelActualizado){
+                    return res.status(200).send({ mensaje:'se removo el servicio correctamente',servicioEliminado});
+                }else{
+                    return res.status(500).send({ mensaje:'error al remover el servicio del hotel'})
+                }
+            })
+        }else{
+            return res.status(500).send({ mensaje:'error al elimianr le servicios'});
+        }
     })
 }
 

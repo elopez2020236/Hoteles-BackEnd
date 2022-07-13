@@ -1,5 +1,5 @@
 const Hoteles = require("../models/hotel.model");
-
+const Usuario = require("../models/usuario.model")
 //Agregar Hoteles
 function agregarHotel(req, res) {
     let parametros = req.body;
@@ -108,6 +108,42 @@ function obtenerHotelxGerente(req,res){
     })
 }
 
+function ObtenerusuarioHosperdado (req,res){
+    var nombreuser = req.body;
+    var hotelid = req.params.idHotel;
+
+    Usuario.findOne({nombre:nombreuser.nombre}, (err, usuarioEncontrado)=>{
+        if (err) {
+            return res.status(500).send({ mensaje:'error en la peticion 1'})
+        }else if (usuarioEncontrado){
+
+            Hoteles.findById(hotelid,(err,hotelEncontrado)=>{
+                if(err){
+                    return res.status(500).send({ mensaje: "error en la peticion 1"});
+        
+                }else if (hotelEncontrado){
+                   let arrayHuesped = hotelEncontrado.Huespedes
+
+                   if(arrayHuesped.includes(usuarioEncontrado._id)){
+
+                    return res.status(200).send({mesaje:'El usuario se encuentra registrado ',usuarioEncontrado});
+
+                   }else{
+                    return res.status(500).send({ mensaje:'el usario no se encuentra hosperdo'})
+                   }
+
+
+                }else{
+                    return res.status(500).send({ mensaje:'el usuario no se encuetra hospedado en su hotel'});
+                }
+            })
+        }else{
+            return res.status(500).send({ mensaje:'el usuario no existe o no esta registrado'})
+        }
+    })
+   
+
+  }
 module.exports = {
     agregarHotel,
     editarHotel,
@@ -115,6 +151,6 @@ module.exports = {
     verHoteles,
     buscarHotelByName,
     obtenerHotelesById,
-   
+    ObtenerusuarioHosperdado,
     obtenerHotelxGerente
 };

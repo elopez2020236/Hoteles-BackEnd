@@ -99,13 +99,29 @@ function AgregarReservacion(req, res) {
                                                                     if(err){
                                                                         return res.status(500).send({ mensaje: "error en la peticion 10"});
                                                                     }else if (Ultimocarrito){
-                                                                      return res.status(200).send({ mensaje:'se creo la reservacion y se actualizo el carrito correctamente',reservationActualizada})
+
+                                                                   
+                                                                      Hoteles.findByIdAndUpdate(hotelEncontrado._id,{$push:{Huespedes:user}},(err,hotelActualizado)=>{
+                                                                        if(err){
+                                                                          return res.status(500).send({ mensaje: "error en peticion 11"});
+                                                                        }else if (hotelActualizado){
+
+                                                                          return res.status(200).send({ mensaje:'se realizaron todas la acciones ', reservationActualizada})
+                                                                        }else{
+                                                                         
+                                                                        }
+                                                                      })
+                                                                      
+                                                                    }else{
+                                                                      return res.status(500).send({ mensaje:'no se actualizo el carrito'})
                                                                     }
                                                                  })
                                                                  
                                                                  
 
                                                                 
+                                                                }else{
+                                                                  
                                                                 }
                                                               })
 
@@ -208,6 +224,7 @@ function eliminarReservacion(req, res) {
     })
    
   }
+
 
 
 module.exports = {
