@@ -87,11 +87,24 @@ function EliminarHabitaciones(req, res) {
     let idHab = req.params.idHabitacion;
 
     Habitaciones.findByIdAndDelete(idHab, (err, habitacionEliminado) => {
-        if (err) return res.status(500).send({ mensaje: 'Error en la peticion' });
-        if (!habitacionEliminado) return res.status(500)
-            .send({ mensaje: 'Error al eliminar el producto' })
+        if (err){
+            return res.status(500).send({ mensaje:'error en la peticion 1'});
+        }else if ( habitacionEliminado){
+            Hoteles.findOneAndUpdate({Habitaciones:habitacionEliminado._id},{$pull:{Habitaciones:habitacionEliminado._id}},
+                (err,habitacionEliminado7)=>{
+                    if(err){
+                        return res.status(500).send({ mensaje:'error en la peticion 2'});
+                    }if(habitacionEliminado7){
+                        return res.status(200).send({ mensaje:'se elimno y removio la habitacion ',habitacionEliminado});
+                    }else{
+                        return res.status(500).send({ mensaje: 'error al remover la habitacion '})
+                    }
+                })
 
-        return res.status(200).send({ habitaciones: habitacionEliminado });
+        }else{
+            return res.status(500).send({ mensaje: 'error en al elimnar la habitacion'})
+        }
+;
     })
 }
 function ObtnernerHabitacionesxHotel(req, res){
