@@ -24,13 +24,15 @@ function AgregarReservacion(req, res) {
           var hotelid = hotelfined._id
       
         modeloReservacion.idUsuario= req.user.sub;
-        modeloReservacion.idHotel = hotelid
+        modeloReservacion.idHotel = hotelid;
+        modeloReservacion.numeroDias = parametros.numeroDias;
+        modeloReservacion.estado= false;
         
         modeloReservacion.save((err, reservacionGuardado) => {
           if (err){
             return res.status(500).send({ mensaje: "error "})
           }else if (reservacionGuardado){
-            Habitaciones.findByIdAndUpdate(habitacionid,parametros,{ new: true},
+            Habitaciones.findByIdAndUpdate(habitacionid,{numeroDias:reservacionGuardado.numeroDias,estado:false},{ new: true},
               (err,habitacionActualizada)=>{
                 if (err){ 
                   return res.status(500).send({ mensaje: "error en la perion 2"})
@@ -41,7 +43,7 @@ function AgregarReservacion(req, res) {
                        }else if (carritoencontrado){
                           
                           let preciohabitacion = habitacionActualizada.precio;
-                          let dias = habitacionActualizada.numeroDias;
+                          let dias = reservacionGuardado.numeroDias;
                           let costohabitacion = preciohabitacion*dias
                           let subtalbefore = carritoencontrado.subTotal
                           let subtotalafter = subtalbefore + costohabitacion
@@ -121,7 +123,7 @@ function AgregarReservacion(req, res) {
 
                                                                 
                                                                 }else{
-                                                                  
+                                                                
                                                                 }
                                                               })
 
