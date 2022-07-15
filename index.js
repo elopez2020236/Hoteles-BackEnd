@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
+require('dotenv').config();
+
 const app = require("./app");
 const usuarioController = require("./src/controllers/usuario.controller");
 
 mongoose.Promise = global.Promise;
 mongoose
-  .connect("mongodb://localhost:27017/hoteles", {
+  .connect( process.env.CONNECT_DB , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

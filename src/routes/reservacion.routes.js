@@ -14,7 +14,7 @@ api.delete("/eliminarReservacion/:idReservacion",  md_autenticacion.Auth, reserv
 api.get("/obtenerReservacionesxHotel/:idHotel", md_autenticacion.Auth, reservacionControler.obtenerReservacionesxHotel);
 api.put("/editarReservacion/:idReservacion",md_autenticacion.Auth, reservacionControler.editarReservacion);
 api.get("/prueba/:idHabitacion", md_autenticacion.Auth,reservacionControler.obtenerxhotelXhabitacion)
-
+api.get("/obtnerTodasLasReservaciones", md_autenticacion.Auth)
 
 
 module.exports = api;
