@@ -108,7 +108,17 @@ function AgregarReservacion(req, res) {
                                                                           return res.status(500).send({ mensaje: "error en peticion 11"});
                                                                         }else if (hotelActualizado){
 
-                                                                          return res.status(200).send({ mensaje:'se realizaron todas la acciones ', reservationActualizada})
+                                                                                                                  
+                                                                          Habitaciones.findByIdAndUpdate(habitacionid,{numeroDias:parametros.numeroDias},(err,habitacionesAc)=>{
+                                                                            if(err){
+                                                                              return res.status(500).send({ mensaje:'error en la peticion'})
+                                                                            }else if (habitacionesAc){
+                                                                              return res.status(200).send({ mensaje:'los procesos de la reservacion se hicieron con exito',reservacionGuardado});
+                                                                            }else{
+                                                                              return res.status(500).send({ mensaje:'error al agregar el numero dias'})
+                                                                            }
+                                                                          })
+
                                                                         }else{
                                                                          
                                                                         }
@@ -246,5 +256,6 @@ module.exports = {
     eliminarReservacion,
     obtenerReservacionesxHotel,
     editarReservacion,
-    obtenerxhotelXhabitacion
+    obtenerxhotelXhabitacion,
+    obtenerReservacion
 }

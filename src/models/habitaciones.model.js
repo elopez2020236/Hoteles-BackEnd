@@ -8,7 +8,7 @@ const HabitacionesSchema = Schema({
     precio: String,
     idHoteles: { type: Schema.Types.ObjectId, ref: "Hotel" },
     estado:Boolean,
-    
+    numeroDias:Number,
 });
 
 
