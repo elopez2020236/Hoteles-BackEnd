@@ -1,12 +1,15 @@
-const mongoose = require("mongoose");
 require('dotenv').config();
+//console.log(process.env)
 
+const mongoose = require("mongoose");
 const app = require("./app");
 const usuarioController = require("./src/controllers/usuario.controller");
 
+
+
 mongoose.Promise = global.Promise;
 mongoose
-  .connect( process.env.CONNECT_DB , {
+  .connect(process.env.DB_CONNECT , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
